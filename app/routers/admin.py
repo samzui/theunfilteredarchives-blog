@@ -1353,7 +1353,7 @@ Do not invent engagement that is not present.
         # GENERATE CONTENT
         # -------------------------------------------------
 
-                # -------------------------------------------------
+                       # -------------------------------------------------
         # GENERATE AI ANALYSIS USING GEMINI
         # -------------------------------------------------
 
@@ -1365,7 +1365,27 @@ Do not invent engagement that is not present.
             },
         )
 
+        # -------------------------------------------------
+        # GET GEMINI RESPONSE
+        # -------------------------------------------------
+
         raw_text = response.text
+
+        if not raw_text:
+            raise RuntimeError(
+                "Gemini returned an empty response."
+            )
+
+        # -------------------------------------------------
+        # PARSE GEMINI JSON RESPONSE
+        # -------------------------------------------------
+
+        try:
+            analysis = json.loads(raw_text)
+        except json.JSONDecodeError as e:
+            raise RuntimeError(
+                f"Gemini returned invalid JSON: {e}"
+            )
 
         # -------------------------------------------------
         # VALIDATE RESPONSE
