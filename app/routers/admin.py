@@ -1353,25 +1353,19 @@ Do not invent engagement that is not present.
         # GENERATE CONTENT
         # -------------------------------------------------
 
-        # -------------------------------------------------
-        # GENERATE AI ANALYSIS USING GEMINI INTERACTIONS API
+                # -------------------------------------------------
+        # GENERATE AI ANALYSIS USING GEMINI
         # -------------------------------------------------
 
-        interaction = client.interactions.create(
+        response = client.models.generate_content(
             model="gemini-3.6-flash",
-            input=prompt,
+            contents=prompt,
+            config={
+                "response_mime_type": "application/json",
+            },
         )
 
-        raw_text = interaction.output_text
-
-        if not raw_text:
-            raise RuntimeError(
-                "Gemini returned an empty response."
-            )
-
-        analysis = json.loads(
-            raw_text
-        )
+        raw_text = response.text
 
         # -------------------------------------------------
         # VALIDATE RESPONSE
