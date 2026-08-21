@@ -13,6 +13,22 @@ class WritingIn(BaseModel):
 class WritingOut(WritingIn):
  model_config=ConfigDict(from_attributes=True)
  id:int; slug:str; view_count:int; author_id:int; created_at:datetime; updated_at:datetime; published_at:Optional[datetime]
+
+class WritingListOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    title: str
+    excerpt: Optional[str] = None
+    category_id: Optional[int] = None
+    status: str
+    featured: bool
+    slug: str
+    view_count: int
+    author_id: int
+    created_at: datetime
+    updated_at: datetime
+    published_at: Optional[datetime]
 class CommentIn(BaseModel): content:str=Field(min_length=1,max_length=5000); parent_id:Optional[int]=None
 class CommentOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
