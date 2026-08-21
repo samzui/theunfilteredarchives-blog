@@ -20,6 +20,7 @@ class WritingListOut(BaseModel):
     id: int
     title: str
     excerpt: Optional[str] = None
+    cover_image_url: Optional[str] = None
     category_id: Optional[int] = None
     status: str
     featured: bool
